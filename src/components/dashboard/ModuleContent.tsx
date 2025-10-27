@@ -1,4 +1,3 @@
-// src/components/dashboard/ModuleContent.tsx
 "use client";
 
 import React from "react";
@@ -9,15 +8,14 @@ import { ModuleGrid } from "./ModuleGrid";
 type Props = {
   moduleId: ModuleId;
   submoduleId: SubmoduleId;
-  projectData?: ProjectWithModules | null;
+  projectData?: ProjectWithModules;
 };
 
 export function ModuleContent({ moduleId, submoduleId, projectData }: Props) {
-  const { resolvedTheme } = useTheme();
   const { isDark } = useTheme();
 
   if (moduleId === "build" && submoduleId === "modules") {
-    return <ModuleGrid projectData={projectData ?? undefined} />;
+    return <ModuleGrid projectData={projectData} />;
   }
 
   return (
@@ -42,7 +40,7 @@ export function ModuleContent({ moduleId, submoduleId, projectData }: Props) {
               .join(" ")}
           </h1>
           <p className={isDark ? "text-gray-400" : "text-gray-600"}>
-            Configure your {submoduleId.replace("-", " ")} settings
+            Configure your {submoduleId.replace(/-/g, " ")} settings
           </p>
         </div>
 
@@ -73,7 +71,7 @@ export function ModuleContent({ moduleId, submoduleId, projectData }: Props) {
           >
             Coming Soon
           </h3>
-          <p className={isDark ? "text-gray-400" : "text-gray-600"}>
+          <p className={`mb-6 ${isDark ? "text-gray-400" : "text-gray-600"}`}>
             This section is under construction
           </p>
         </div>
@@ -81,4 +79,3 @@ export function ModuleContent({ moduleId, submoduleId, projectData }: Props) {
     </div>
   );
 }
-    

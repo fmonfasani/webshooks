@@ -1,5 +1,5 @@
 import React from 'react';
-import type { ChatMessage } from '../../types';
+import type { ChatMessage } from '@/types';
 
 export type MessageBubbleProps = Pick<ChatMessage, 'role' | 'content' | 'timestamp'>;
 

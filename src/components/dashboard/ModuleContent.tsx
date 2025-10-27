@@ -2,7 +2,7 @@
 "use client";
 
 import React from "react";
-import { useTheme } from "next-themes";
+import { useTheme } from "@/contexts/ThemeContext";
 import type { ModuleId, ProjectWithModules, SubmoduleId } from "@/types";
 import { ModuleGrid } from "./ModuleGrid";
 
@@ -14,7 +14,7 @@ type Props = {
 
 export function ModuleContent({ moduleId, submoduleId, projectData }: Props) {
   const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === "dark";
+  const { isDark } = useTheme();
 
   if (moduleId === "build" && submoduleId === "modules") {
     return <ModuleGrid projectData={projectData ?? undefined} />;

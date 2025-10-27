@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import { MessageBubble } from '../../src/components/MessageBubble';
+import { MessageBubble } from '../../src/components/chat/MessageBubble';
 
 const html = ReactDOMServer.renderToString(
   <div>

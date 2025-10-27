@@ -38,8 +38,8 @@ import {
   Bell,
   MessageCircle,
 } from "lucide-react";
-import { useTheme } from "next-themes";
 import Link from "next/link";
+import {useTheme} from @/content/ThemeContext;
 import type { Module, ModuleId, ProjectProgress, SubmoduleId } from "@/types";
 
 const modules: Module[] = [
@@ -146,9 +146,7 @@ export function DashboardSidebar({
   onSelectSubmodule,
   projectProgress,
 }: Props) {
-  const [expandedModules, setExpandedModules] = useState<ModuleId[]>(["build"]);
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === "dark";
+  const { isDark } = useTheme();
 
   const toggleModule = (moduleId: ModuleId) => {
     setExpandedModules((prev) =>

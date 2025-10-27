@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import { ChatPanel } from '../../src/components/ChatPanel';
+import { ChatPanel } from '../../src/components/chat/ChatPanel';
 import type { ChatMessage } from '../../src/types';
 
 const msgs: ChatMessage[] = [

@@ -1,7 +1,9 @@
+// src\components\dashboard\ModuleGrid.tsx
+
 "use client";
 
 import React from "react";
-import { useTheme } from "next-themes";
+import { useTheme } from "@/contexts/ThemeContext";
 import { Code, Database, Layout, Lock } from "lucide-react";
 
 import type { ProjectWithModules } from "@/types";
@@ -50,8 +52,7 @@ type Props = {
 };
 
 export function ModuleGrid({ projectData }: Props) {
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === "dark";
+  const { isDark } = useTheme();
 
   const activeModules = projectData?.activeModules ?? [];
 

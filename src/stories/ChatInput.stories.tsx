@@ -1,10 +1,21 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { ChatInput } from '../components/ChatInput';
+import React from "react";
+import { ChatInput } from "@/components/chat/ChatInput";
 
-const meta: Meta<typeof ChatInput> = { title: 'Components/ChatInput', component: ChatInput };
+type AnyComponent = React.ComponentType<any>;
+type Meta<T extends AnyComponent> = { title: string; component: T };
+type Story<T extends AnyComponent> = { args?: Partial<React.ComponentProps<T>> };
+
+const meta: Meta<typeof ChatInput> = {
+  title: "Components/ChatInput",
+  component: ChatInput,
+};
+
 export default meta;
-type Story = StoryObj<typeof ChatInput>;
 
-export const Default: Story = { args: { onSend: () => {} } };
-export const Disabled: Story = { args: { onSend: () => {}, disabled: true } };
+export const Default: Story<typeof ChatInput> = {
+  args: { onSend: () => {} },
+};
 
+export const Disabled: Story<typeof ChatInput> = {
+  args: { onSend: () => {}, disabled: true },
+};

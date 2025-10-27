@@ -1,14 +1,16 @@
+
+// src\app\builder\page.tsx
 "use client";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { useTheme } from "next-themes";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { ChatMessage } from "@/types";
 import { useChatStore } from "@/store/useChatStore";
 
 export default function ChatBuilderPage() {
-  const { theme } = useTheme();
+
   const { messages, sending, send } = useChatStore();
   const [text, setText] = useState("");
   const [hydrated, setHydrated] = useState<ChatMessage[] | null>(null);

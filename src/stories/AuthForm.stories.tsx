@@ -1,11 +1,25 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { AuthForm } from '../components/AuthForm';
+import React from "react";
+import { AuthForm } from "@/components/auth/AuthForm";
 
-const meta: Meta<typeof AuthForm> = { title: 'Components/AuthForm', component: AuthForm };
+type AnyComponent = React.ComponentType<any>;
+type Meta<T extends AnyComponent> = { title: string; component: T };
+type Story<T extends AnyComponent> = { args?: Partial<React.ComponentProps<T>> };
+
+const meta: Meta<typeof AuthForm> = {
+  title: "Components/AuthForm",
+  component: AuthForm,
+};
+
 export default meta;
-type Story = StoryObj<typeof AuthForm>;
 
-export const SignIn: Story = { args: { mode: 'signin', loading: false, onSubmit: async () => {} } };
-export const SignUp: Story = { args: { mode: 'signup', loading: false, onSubmit: async () => {} } };
-export const Loading: Story = { args: { mode: 'signin', loading: true, onSubmit: async () => {} } };
+export const SignIn: Story<typeof AuthForm> = {
+  args: { mode: "signin", loading: false, onSubmit: async () => {} },
+};
 
+export const SignUp: Story<typeof AuthForm> = {
+  args: { mode: "signup", loading: false, onSubmit: async () => {} },
+};
+
+export const Loading: Story<typeof AuthForm> = {
+  args: { mode: "signin", loading: true, onSubmit: async () => {} },
+};

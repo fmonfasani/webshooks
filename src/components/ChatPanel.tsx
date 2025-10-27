@@ -1,3 +1,4 @@
+// src\components\ChatPanel.tsx
 import React from 'react';
 import { MessageBubble } from './ui/message-bubble';
 import type { ChatMessage } from '../types';

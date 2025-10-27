@@ -1,44 +1,26 @@
-import React, { Suspense } from "react";
+// src/app/layout.tsx
+import type { Metadata } from "next";
+import React from "react";
 import "./globals.css";
-import dynamic from 'next/dynamic';
-const Navbar = dynamic(() => import("../components/Navbar").then(m => m.Navbar), {
-  ssr: false,
-  loading: () => (
-    <div className="h-14 w-full motion-safe:animate-pulse bg-gray-200/10 dark:bg-gray-700/20" />
-  ),
-});
-const Sidebar = dynamic(() => import("../components/Sidebar").then(m => m.Sidebar), {
-  ssr: false,
-  loading: () => (
-    <div className="hidden md:block w-12 motion-safe:animate-pulse bg-gray-200/10 dark:bg-gray-700/20" />
-  ),
-});
-import { Toaster } from "../lib/toast";
-import { ThemeProvider } from "../components/ThemeProvider";
-import { RouteTransition } from "../components/RouteTransition";
 
-export const metadata = {
-  title: "Webshooks  SaaS Builder",
-  description: "Serverless SaaS creation flow powered by Codex",
+import { ThemeProvider } from "@/components/layout/ThemeProvider";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { Toaster } from "@/lib/toast";
+
+export const metadata: Metadata = {
+  title: "Webshooks SaaS Builder",
+  description: "Serverless SaaS creation flow powered by Webshooks",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="flex min-h-screen smooth-transition">
+      <body className="min-h-screen bg-white text-gray-900 antialiased dark:bg-slate-950 dark:text-gray-100">
         <ThemeProvider>
-          <Suspense fallback={<div className="hidden md:block w-12 motion-safe:animate-pulse bg-gray-200/10 dark:bg-gray-700/20" />}>
-            <Sidebar />
-          </Suspense>
-          <div className="flex-1 flex flex-col">
-            <Suspense fallback={<div className="h-14 w-full motion-safe:animate-pulse bg-gray-200/10 dark:bg-gray-700/20" />}>
-              <Navbar />
-            </Suspense>
-            <RouteTransition>
-              {children}
-            </RouteTransition>
-          </div>
-          <Toaster />
+          <AuthProvider>
+            {children}
+            <Toaster />
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

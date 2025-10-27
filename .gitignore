@@ -1,5 +1,6 @@
 # --- Entornos y credenciales ---
 .env
+.env.txt
 .env.*
 *.key
 *.pem

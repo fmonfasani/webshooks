@@ -1,3 +1,4 @@
+// src/types/index.ts
 export type ID = string;
 
 export type User = {
@@ -16,7 +17,40 @@ export type Project = {
   updatedAt: string; // ISO8601
 };
 
-export type ChatRole = 'user' | 'system';
+export type ModuleId =
+  | "planning"
+  | "design"
+  | "build"
+  | "integrate"
+  | "test"
+  | "deploy"
+  | "monitor"
+  | "collaborate";
+
+export type SubmoduleId = string;
+
+export type Submodule = {
+  id: SubmoduleId;
+  name: string;
+  icon: any; // lucide-react icon
+  description?: string;
+};
+
+export type Module = {
+  id: ModuleId;
+  name: string;
+  icon: any;
+  submodules: Submodule[];
+};
+
+export type ProjectProgress = Record<ModuleId, number>; // 0-100
+
+export type ProjectWithModules = Project & {
+  progress: ProjectProgress;
+  activeModules: string[]; // IDs de módulos habilitados
+};
+
+export type ChatRole = "user" | "system";
 
 export type ChatMessage = {
   id: ID;
@@ -24,4 +58,3 @@ export type ChatMessage = {
   content: string;
   timestamp: string; // ISO8601
 };
-

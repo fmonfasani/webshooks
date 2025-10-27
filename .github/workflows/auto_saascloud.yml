@@ -1,0 +1,43 @@
+name: SaaSCloud Autopilot CI/CD
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * *" # (Opcional) Ejecutar cada día a las 3AM UTC
+
+jobs:
+  autopilot:
+    runs-on: ubuntu-latest
+
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+      RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      DEPLOY_PLATFORM: vercel  # Cambiar por render o railway si querés otro
+
+    steps:
+      - name: 🧩 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 📦 Install Dependencies
+        run: |
+          npm install -g pnpm
+          pnpm install
+          pip install -r requirements.txt || pip install openai
+
+      - name: 🤖 Run SaaSCloud Autopilot
+        run: |
+          python scripts/auto_saascloud.py

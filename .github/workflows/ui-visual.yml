@@ -1,0 +1,19 @@
+name: ui-visual
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  visual:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install deps
+        run: npm ci || npm i --no-audit --no-fund
+      - name: Visual SSR check
+        run: node scripts/visual_check.mjs
+

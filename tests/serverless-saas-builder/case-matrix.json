@@ -1,0 +1,16 @@
+[
+  {
+    "id": "AUTH-SUCCESS",
+    "given": "Valid FastAPI backend at http://localhost:8000/api",
+    "when": "User submits correct email and password",
+    "then": "Receives access_token and dashboard rendered",
+    "expected_status": "pass"
+  },
+  {
+    "id": "AUTH-FAILURE",
+    "given": "FastAPI returns 401",
+    "when": "User submits invalid credentials",
+    "then": "Error toast shown and token not persisted",
+    "expected_status": "pending"
+  }
+]

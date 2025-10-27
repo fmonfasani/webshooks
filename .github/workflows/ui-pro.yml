@@ -1,0 +1,22 @@
+name: ui-pro
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "feat/ui-pro/**" ]
+jobs:
+  pro-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install deps
+        run: |
+          npm install --no-audit --no-fund
+      - name: Visual smoke
+        run: node scripts/visual_smoke.mjs
+      - name: Build (typecheck)
+        run: npm run build --if-present
+

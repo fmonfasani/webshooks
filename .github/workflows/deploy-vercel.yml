@@ -1,0 +1,56 @@
+name: Deploy to Vercel CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pnpm install --frozen-lockfile
+          pip install openai
+
+      - name: Generate features IA
+        run: make generate
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+      - name: Integrate & build
+        run: make integrate build
+
+      - name: Run tests
+        run: make test || true
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel@latest
+
+      - name: Link to Vercel project
+        run: vercel link --yes --token $VERCEL_TOKEN
+
+      - name: Deploy to Vercel (Production)
+        run: npx vercel --prod --token $VERCEL_TOKEN

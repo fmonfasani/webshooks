@@ -1,0 +1,31 @@
+[
+  {
+    "id": "ui-loading-001",
+    "given": "Discovery in progress",
+    "when": "Component renders with isLoading=true",
+    "then": "Shows skeleton rows and disables refresh",
+    "expected_status": "pass"
+  },
+  {
+    "id": "ui-empty-001",
+    "given": "No connectors returned",
+    "when": "Component renders with empty items",
+    "then": "Renders empty hint",
+    "expected_status": "pass"
+  },
+  {
+    "id": "ui-error-001",
+    "given": "Adapter error occurred",
+    "when": "Component renders with error prop",
+    "then": "Shows error alert with code/message",
+    "expected_status": "pass"
+  },
+  {
+    "id": "ui-populated-001",
+    "given": "Connectors available",
+    "when": "Component renders with items",
+    "then": "Lists items with status badges and Select action",
+    "expected_status": "pass"
+  }
+]
+

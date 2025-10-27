@@ -1,0 +1,21 @@
+name: ui-smoke
+on:
+  push:
+  pull_request:
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install deps
+        run: npm ci
+      - name: UI self-check
+        shell: pwsh
+        run: ./scripts/self_check_ui.ps1
+      - name: Type check build
+        run: npm run build --if-present
+

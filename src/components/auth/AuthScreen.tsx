@@ -133,8 +133,8 @@ export default function AuthScreen({ initialMode = "signin" }: AuthScreenProps) 
         <div className={`mx-auto h-full w-[80%] rounded-full bg-gradient-to-r ${gradients.accent} opacity-30`} />
       </div>
 
-      <div className="relative z-10 flex min-h-screen flex-col lg:flex-row">
-        <section className="flex flex-1 flex-col justify-between px-6 py-10 sm:px-12 lg:px-16">
+      <div className="relative z-10 flex min-h-screen flex-col lg:flex-row-reverse">
+        <section className="flex flex-1 flex-col justify-between px-6 py-10 sm:px-12 lg:w-1/2 lg:px-16">
           <header className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/30">
@@ -298,7 +298,7 @@ export default function AuthScreen({ initialMode = "signin" }: AuthScreenProps) 
           </footer>
         </section>
 
-        <aside className="hidden w-full max-w-xl border-l border-white/10 bg-white/40 px-8 py-12 backdrop-blur-xl dark:border-slate-800/40 dark:bg-slate-900/40 lg:block">
+        <aside className="hidden min-h-full flex-1 flex-col justify-between border-r border-white/20 bg-slate-100/80 px-8 py-12 text-slate-900 shadow-inner backdrop-blur-xl dark:border-slate-800/60 dark:bg-slate-900/70 dark:text-slate-100 lg:flex lg:w-1/2 lg:px-12 lg:py-14">
           <div className="flex h-full flex-col justify-between">
             <div className="space-y-6">
               <div className="space-y-3">

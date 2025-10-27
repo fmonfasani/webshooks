@@ -1,7 +1,15 @@
 // src/app/signin/page.tsx
-import React from "react";
-import AuthScreen from "@/components/auth/AuthScreen";
+"use client";
+
+import AuthScreen from "../../components/auth/AuthScreen";
 
 export default function SignInPage() {
-  return <AuthScreen initialMode="signin" />;
+  return (
+    <div className="min-h-screen bg-slate-950 text-white">
+      <AuthScreen initialMode="signin" />
+    </div>
+  );
 }
+
+
+

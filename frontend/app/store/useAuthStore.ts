@@ -1,8 +1,8 @@
-import { useSyncExternalStore, useRef } from 'react';
-import type { Session } from '../src/types';
-import type { AuthService } from '../lib/auth';
-import { authApi } from '../lib/auth';
-import { logEvent } from '../src/telemetry/logger';
+import { useSyncExternalStore, useRef } from "react";
+import type { Session } from "@/types";
+import type { AuthService } from "@/lib/auth";
+import { authApi } from "@/lib/auth";
+import { logEvent } from "@/telemetry/logger";
 
 type State = { session: Session; loading: boolean };
 type Actions = {

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { DashboardSidebar } from "@/components/dashboard/Sidebar";
+import DashboardSidebar from "@/components/dashboard/Sidebar";
 import { SaaSBuilderDashboard } from "@/components/dashboard/SaaSBuilderDashboard";
 import { useAuth } from "@/contexts/AuthContext";
 import { getToken } from "@/lib/storage";

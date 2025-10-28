@@ -1,5 +1,5 @@
 import React from "react";
-import { DashboardSidebar } from "@/components/dashboard/Sidebar";
+import DashboardSidebar from "@/components/dashboard/Sidebar";
 
 type Meta<T> = { title: string; component: T };
 type Story<T> = { render?: () => React.ReactNode };

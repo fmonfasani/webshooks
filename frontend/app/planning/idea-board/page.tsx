@@ -1,5 +1,5 @@
 "use client";
-import ChatAgent from "@/components/chat/ChatPanel";
+import { ChatPanel } from "@/components/chat/ChatPanel";
 
 export default function IdeaBoard() {
   return (
@@ -9,7 +9,7 @@ export default function IdeaBoard() {
         Describe tu idea inicial y el agente la transformará en un proyecto estructurado.
       </p>
       <div className="max-w-3xl mx-auto">
-        <ChatAgent />
+        <ChatPanel messages={[]} state="empty" />
       </div>
     </div>
   );

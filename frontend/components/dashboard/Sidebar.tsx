@@ -144,12 +144,14 @@ export default function DashboardSidebar({
   projectProgress,
   isOpen = true,
   onClose,
+  onSelectSubmodule,
 }: {
   activeModule: ModuleId;
   activeSubmodule: SubmoduleId;
   projectProgress?: ProjectProgress;
   isOpen?: boolean;
   onClose?: () => void;
+  onSelectSubmodule?: (moduleId: ModuleId, submoduleId: SubmoduleId) => void;
 }) {
   const { isDark } = useTheme();
   const [expandedModules, setExpandedModules] = useState<ModuleId[]>(["planning"]);
@@ -250,6 +252,7 @@ export default function DashboardSidebar({
                         <Link
                           key={submodule.id}
                           href={`/dashboard/${module.id}/${submodule.id}`}
+                          onClick={() => onSelectSubmodule?.(module.id, submodule.id)}
                           className={`block rounded-md px-3 py-1.5 text-sm transition ${
                             isActive
                               ? isDark

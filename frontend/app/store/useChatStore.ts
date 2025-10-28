@@ -1,8 +1,8 @@
-import { useSyncExternalStore } from 'react';
-import type { ChatMessage } from '../src/types';
-import type { ChatService } from '../lib/chat';
-import { chatApi } from '../lib/chat';
-import { logEvent, logError } from '../src/telemetry/logger';
+import { useSyncExternalStore } from "react";
+import type { ChatMessage } from "@/types";
+import type { ChatService } from "@/lib/chat";
+import { chatApi } from "@/lib/chat";
+import { logEvent, logError } from "@/telemetry/logger";
 
 type State = { messages: ChatMessage[]; sending: boolean };
 type Actions = { send: (content: string) => Promise<void>; reset: () => void; setAdapter: (svc: ChatService) => void };

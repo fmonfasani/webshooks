@@ -38,9 +38,12 @@ import {
   MessageCircle,
 } from "lucide-react";
 import Link from "next/link";
-import { useTheme } from "@/contexts/ThemeContext"; // CORREGIDO: era @/content/ThemeContext
+import { useTheme } from "@/contexts/ThemeContext";
 import type { Module, ModuleId, ProjectProgress, SubmoduleId } from "@/types";
 
+// ======================
+// 📦 Módulos principales
+// ======================
 const modules: Module[] = [
   {
     id: "planning",
@@ -132,25 +135,24 @@ const modules: Module[] = [
   },
 ];
 
-type Props = {
-  activeModule: ModuleId;
-  activeSubmodule: SubmoduleId;
-  onSelectSubmodule: (moduleId: ModuleId, submoduleId: SubmoduleId) => void;
-  projectProgress?: ProjectProgress;
-  isOpen?: boolean;
-  onClose?: () => void;
-};
-
-export function DashboardSidebar({
+// ======================
+// 🧠 Componente principal
+// ======================
+export default function DashboardSidebar({
   activeModule,
   activeSubmodule,
-  onSelectSubmodule,
   projectProgress,
   isOpen = true,
   onClose,
-}: Props) {
+}: {
+  activeModule: ModuleId;
+  activeSubmodule: SubmoduleId;
+  projectProgress?: ProjectProgress;
+  isOpen?: boolean;
+  onClose?: () => void;
+}) {
   const { isDark } = useTheme();
-  const [expandedModules, setExpandedModules] = useState<ModuleId[]>(["build"]);
+  const [expandedModules, setExpandedModules] = useState<ModuleId[]>(["planning"]);
 
   const toggleModule = (moduleId: ModuleId) => {
     setExpandedModules((prev) =>
@@ -160,21 +162,14 @@ export function DashboardSidebar({
     );
   };
 
-  const getProgressColor = (progress: number) => {
-    if (progress === 100) return isDark ? "text-emerald-400" : "text-emerald-600";
-    if (progress >= 50) return isDark ? "text-amber-400" : "text-amber-600";
-    if (progress > 0) return isDark ? "text-blue-400" : "text-blue-600";
-    return isDark ? "text-gray-600" : "text-gray-400";
-  };
-
+  // ======================
+  // 🎨 UI
+  // ======================
   return (
     <>
-      {/* Mobile overlay */}
+      {/* Overlay móvil */}
       {isOpen && onClose && (
-        <div
-          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
-          onClick={onClose}
-        />
+        <div className="fixed inset-0 z-40 bg-black/50 lg:hidden" onClick={onClose} />
       )}
 
       {/* Sidebar */}
@@ -183,6 +178,7 @@ export function DashboardSidebar({
           isOpen ? "translate-x-0" : "-translate-x-full"
         } ${isDark ? "border-slate-800 bg-slate-900" : "border-gray-200 bg-white"}`}
       >
+        {/* Header */}
         <div
           className={`border-b px-6 py-5 transition-colors ${
             isDark ? "border-slate-800" : "border-gray-200"
@@ -192,21 +188,17 @@ export function DashboardSidebar({
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600">
               <span className="text-sm font-bold text-white">SS</span>
             </div>
-            <div>
-              <h1
-                className={`text-base font-semibold ${
-                  isDark ? "text-white" : "text-gray-900"
-                }`}
-              >
-                serverless
-                <span className={isDark ? "text-gray-500" : "text-gray-400"}>
-                  .io
-                </span>
-              </h1>
-            </div>
+            <h1
+              className={`text-base font-semibold ${
+                isDark ? "text-white" : "text-gray-900"
+              }`}
+            >
+              serverless<span className={isDark ? "text-gray-500" : "text-gray-400"}>.io</span>
+            </h1>
           </div>
         </div>
 
+        {/* Navegación principal */}
         <nav className="h-[calc(100vh-180px)] space-y-1 overflow-y-auto p-3">
           {modules.map((module) => {
             const Icon = module.icon;
@@ -253,17 +245,12 @@ export function DashboardSidebar({
                   >
                     {module.submodules.map((submodule) => {
                       const isActive =
-                        activeModule === module.id &&
-                        activeSubmodule === submodule.id;
-
+                        activeModule === module.id && activeSubmodule === submodule.id;
                       return (
-                        <button
+                        <Link
                           key={submodule.id}
-                          type="button"
-                          onClick={() =>
-                            onSelectSubmodule(module.id, submodule.id)
-                          }
-                          className={`w-full rounded-md px-3 py-1.5 text-left text-sm transition ${
+                          href={`/dashboard/${module.id}/${submodule.id}`}
+                          className={`block rounded-md px-3 py-1.5 text-sm transition ${
                             isActive
                               ? isDark
                                 ? "bg-blue-500/10 text-blue-400"
@@ -274,7 +261,7 @@ export function DashboardSidebar({
                           }`}
                         >
                           {submodule.name}
-                        </button>
+                        </Link>
                       );
                     })}
                   </motion.div>
@@ -284,21 +271,18 @@ export function DashboardSidebar({
           })}
         </nav>
 
+        {/* Footer */}
         <div
           className={`border-t p-3 ${
             isDark ? "border-slate-800" : "border-gray-200"
           }`}
         >
-          <div
-            className={`mb-2 px-3 text-xs font-semibold ${
-              isDark ? "text-gray-500" : "text-gray-500"
-            }`}
-          >
+          <div className="mb-2 px-3 text-xs font-semibold text-gray-500">
             Resources
           </div>
           <Link
             href="/docs"
-            className={`flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm transition ${
+            className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition ${
               isDark
                 ? "text-gray-400 hover:bg-slate-800 hover:text-gray-300"
                 : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
@@ -309,7 +293,7 @@ export function DashboardSidebar({
           </Link>
           <Link
             href="https://github.com"
-            className={`flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm transition ${
+            className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition ${
               isDark
                 ? "text-gray-400 hover:bg-slate-800 hover:text-gray-300"
                 : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"

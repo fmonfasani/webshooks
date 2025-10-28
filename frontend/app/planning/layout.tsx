@@ -1,3 +1,4 @@
+// frontend\app\planning\layout.tsx
 import React from "react";
 
 export default function PlanningLayout({ children }: { children: React.ReactNode }) {

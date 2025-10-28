@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "properties": {
+    "project_name": {"type": "string"},
+    "description": {"type": "string"},
+    "goals": {"type": "array", "items": {"type": "string"}},
+    "modules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "module_name": {"type": "string"},
+          "priority": {"type": "string"},
+          "milestones": {"type": "array", "items": {"type": "string"}}
+        },
+        "required": ["module_name", "priority"]
+      }
+    },
+    "timeline": {
+      "type": "object",
+      "properties": {
+        "phase_1": {"type": "string"},
+        "phase_2": {"type": "string"},
+        "phase_3": {"type": "string"}
+      }
+    }
+  },
+  "required": ["project_name", "modules"]
+}

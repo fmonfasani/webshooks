@@ -1,10 +1,13 @@
-from fastapi import APIRouter
-from agents.planning.planning_agent import run_planning
+from fastapi import APIRouter, HTTPException
+from agents.planning.planning_agent import PlanningAgent
 
-router = APIRouter(prefix="/api/planning", tags=["Planning"])
+router = APIRouter()
+agent = PlanningAgent()
 
-@router.post("/")
-async def generate_plan(payload: dict):
-    """Genera el plan de proyecto con el agente Planning."""
-    result = await run_planning(payload.get("instruction", "Create a SaaS plan"))
-    return {"plan": result}
+@router.post("/planning")
+async def run_planning_agent(prompt: str):
+    try:
+        result = await agent.run(prompt)
+        return {"response": result}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

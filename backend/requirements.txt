@@ -4,4 +4,6 @@ sqlmodel
 python-jose
 passlib[bcrypt]
 httpx
-
+pydantic[email]
+python-dotenv
+openai

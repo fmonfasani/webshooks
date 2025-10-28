@@ -2,39 +2,40 @@
 import React, { useState } from "react";
 
 export default function PlanningPage() {
-  const [instruction, setInstruction] = useState("");
-  const [response, setResponse] = useState(null);
+  const [prompt, setPrompt] = useState("");
+  const [response, setResponse] = useState("");
 
-  const generatePlan = async () => {
-    const res = await fetch("/api/planning", {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const res = await fetch("http://localhost:8000/api/planning", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ instruction }),
+      body: JSON.stringify({ prompt }),
     });
     const data = await res.json();
-    setResponse(data.plan);
+    setResponse(data.response);
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 text-gray-900 p-8">
-      <h1 className="text-3xl font-bold mb-4">í·  Planning Agent</h1>
-      <textarea
-        value={instruction}
-        onChange={(e) => setInstruction(e.target.value)}
-        className="w-full max-w-xl h-32 border rounded-lg p-4 mb-4"
-        placeholder="Describe your SaaS idea..."
-      />
-      <button
-        onClick={generatePlan}
-        className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-      >
-        Generate Plan
-      </button>
-
+    <div className="p-8 space-y-6">
+      <h1 className="text-3xl font-bold">ðŸ§­ Planning Agent</h1>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <textarea
+          className="w-full p-3 border rounded"
+          rows={4}
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+          placeholder="Describe your project idea..."
+        />
+        <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded">
+          Run Agent
+        </button>
+      </form>
       {response && (
-        <pre className="mt-6 bg-gray-900 text-green-300 p-4 rounded-lg text-sm max-w-3xl overflow-auto">
-          {JSON.stringify(response, null, 2)}
-        </pre>
+        <div className="p-4 border rounded bg-gray-50">
+          <h2 className="font-semibold">Response:</h2>
+          <p>{response}</p>
+        </div>
       )}
     </div>
   );

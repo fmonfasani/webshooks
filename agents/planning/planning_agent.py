@@ -1,22 +1,16 @@
-from agents import Agent, Runner, tool
-import json
+from openai import OpenAI
+import os
 
-@tool
-def save_project_plan(data: dict):
-    """Guarda el plan generado en la base de datos."""
-    from backend.services.planning_service import save_plan
-    return save_plan(data)
+class PlanningAgent:
+    def __init__(self):
+        self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-planning_agent = Agent(
-    name="PlanningAgent",
-    instructions=(
-        "Eres un agente experto en planificación SaaS. "
-        "Generas PRDs, backlog inicial y roadmap estructurado. "
-        "Devuelve siempre un JSON válido según planning_schema.json."
-    ),
-    tools=[save_project_plan],
-)
-
-async def run_planning(prompt: str):
-    result = await Runner.run(planning_agent, prompt)
-    return result.final_output
+    async def run(self, prompt: str):
+        response = self.client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "You are a planning assistant helping to break down projects into actionable steps."},
+                {"role": "user", "content": prompt},
+            ]
+        )
+        return response.choices[0].message.content

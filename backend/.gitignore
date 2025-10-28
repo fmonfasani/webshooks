@@ -1,0 +1,71 @@
+# --- Entornos y credenciales ---
+.env
+.env.txt
+.env.*
+*.key
+*.pem
+*.p12
+*.crt
+*.cer
+.npmrc
+
+# --- Python / virtualenv ---
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# --- Node / JS ---
+node_modules/
+npm-debug.log*
+pnpm-lock.yaml
+yarn-error.log
+
+# --- IDE / SO ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- Archivos generados ---
+generated/
+generated_prompts/
+generated_prompts_en/
+repair_queue/
+repair_queue_en/
+logs/
+dist/
+build/
+.next/
+
+# --- Datos ---
+data/features_embeddings.json
+data/feature_v2_en.json
+data/*.sqlite
+data/*.db
+*.db
+*.sqlite
+*.sqlite3
+
+# --- Configuración local ---
+.env.local
+plans/*.list
+plans/*.json
+scripts/tmp/
+tests/tmp/
+*.bak
+ generated_en
+ generated_v1.0
+
+
+# --- documentos que no quiero trackear
+data/
+AGENTS.md
+Deploy.md
+Thinking.md
+Docs/
+features/
+scripts/
+generated_v1.0/
